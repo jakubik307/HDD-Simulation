@@ -3,7 +3,7 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
-    public final static int simulationSize = 5;
+    public final static int simulationSize = 8;
     public final static int driveSize = 10000;
     public final static int avgTimePerRequest = 30;
     public final static int startingPosition = 53;
@@ -14,19 +14,19 @@ public class Main {
         ArrayList<Request> test = new ArrayList<>();
 
         test.add(new Request(0, 98));
-        test.add(new Request(1, 183));
-        test.add(new Request(2, 37));
-        test.add(new Request(3, 122));
-        test.add(new Request(4, 14));
-        test.add(new Request(5, 124));
-        test.add(new Request(6, 65));
-        test.add(new Request(7, 67));
+        test.add(new Request(0, 183));
+        test.add(new Request(0, 37));
+        test.add(new Request(0, 122));
+        test.add(new Request(0, 14));
+        test.add(new Request(0, 124));
+        test.add(new Request(0, 65));
+        test.add(new Request(0, 67));
 
-        FCFS fcfs = new FCFS();
-        fcfs.startSimulation(test);
+        SSTF sstf = new SSTF();
+        sstf.startSimulation(test);
 
-        System.out.println(fcfs.totalHeadMovement);
-        System.out.println(fcfs.currentTime);
+        System.out.println(sstf.totalHeadMovement);
+        System.out.println(sstf.currentTime);
     }
 
     private static void generateRequestQueue() {
