@@ -2,6 +2,8 @@ import java.util.*;
 
 public abstract class Algorithm {
     protected int currentTime;
+    protected int totalHeadMovement;
+    protected int headPosition;
     protected int finishedRequests;
     protected int previousRefreshTime;
     protected Request activeRequest;
@@ -10,6 +12,7 @@ public abstract class Algorithm {
 
     public Algorithm() {
         this.currentTime = 0;
+        this.headPosition = Main.startingPosition;
         this.finishedRequests = 0;
         this.previousRefreshTime = 0;
         this.activeRequest = null;
@@ -29,11 +32,11 @@ public abstract class Algorithm {
             activeQueue.add(simulationQueue.remove());
         }
     }
-    
+
     protected void calculateWaitingTime() {
         // TODO: 17/04/2023  
     }
-    
+
     protected void printResults() {
         // TODO: 17/04/2023  
     }

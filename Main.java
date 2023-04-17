@@ -6,15 +6,27 @@ public class Main {
     public final static int simulationSize = 5;
     public final static int driveSize = 10000;
     public final static int avgTimePerRequest = 30;
+    public final static int startingPosition = 53;
 
     private final static ArrayList<Request> originalRequests = new ArrayList<>();
 
     public static void main(String[] args) {
-        generateRequestQueue();
+        ArrayList<Request> test = new ArrayList<>();
 
-        for (Request request : originalRequests) {
-            System.out.println(request.getArrivalTime() + " " + request.getPosition());
-        }
+        test.add(new Request(0, 98));
+        test.add(new Request(1, 183));
+        test.add(new Request(2, 37));
+        test.add(new Request(3, 122));
+        test.add(new Request(4, 14));
+        test.add(new Request(5, 124));
+        test.add(new Request(6, 65));
+        test.add(new Request(7, 67));
+
+        FCFS fcfs = new FCFS();
+        fcfs.startSimulation(test);
+
+        System.out.println(fcfs.totalHeadMovement);
+        System.out.println(fcfs.currentTime);
     }
 
     private static void generateRequestQueue() {
