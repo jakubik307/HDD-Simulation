@@ -6,18 +6,12 @@ public class FCFS extends Algorithm {
         copyQueue(requests);
 
         for (Request request : simulationQueue) {
-            currentTime = Math.max(request.getArrivalTime(), currentTime);
+            activeRequest = request;
+            currentTime = Math.max(activeRequest.getArrivalTime(), currentTime);
 
-            int headMovement = Math.abs((headPosition - request.getPosition()));
-            headPosition = request.getPosition();
-            totalHeadMovement += headMovement;
-            currentTime += headMovement;
-
-            request.setWaitingTime(currentTime - request.getArrivalTime() + headMovement);
+            calculateRequestInfo();
         }
 
-        System.out.println("FCFS");
         printResults();
-        System.out.println("----------");
     }
 }

@@ -11,22 +11,7 @@ public class Main {
     private final static ArrayList<Request> originalRequests = new ArrayList<>();
 
     public static void main(String[] args) {
-        ArrayList<Request> test = new ArrayList<>();
-
-        test.add(new Request(0, 98));
-        test.add(new Request(0, 183));
-        test.add(new Request(0, 37));
-        test.add(new Request(0, 122));
-        test.add(new Request(0, 14));
-        test.add(new Request(0, 124));
-        test.add(new Request(0, 65));
-        test.add(new Request(0, 67));
-
-        Algorithm algorithm = new CSCAN();
-        algorithm.startSimulation(test);
-
-        System.out.println(algorithm.totalHeadMovement);
-        System.out.println(algorithm.currentTime);
+        test();
     }
 
     private static void generateRequestQueue() {
@@ -60,5 +45,31 @@ public class Main {
         arrivalTime = random.nextInt(1, simulationSize * avgTimePerRequest);
 
         return new Request(arrivalTime, position);
+    }
+
+    public static void test() {
+        Algorithm algorithm;
+        ArrayList<Request> test = new ArrayList<>();
+
+        test.add(new Request(0, 98));
+        test.add(new Request(0, 183));
+        test.add(new Request(0, 37));
+        test.add(new Request(0, 122));
+        test.add(new Request(0, 14));
+        test.add(new Request(0, 124));
+        test.add(new Request(0, 65));
+        test.add(new Request(0, 67));
+
+        algorithm = new FCFS();
+        algorithm.startSimulation(test);
+
+        algorithm = new SSTF();
+        algorithm.startSimulation(test);
+
+        algorithm = new SCAN();
+        algorithm.startSimulation(test);
+
+        algorithm = new CSCAN();
+        algorithm.startSimulation(test);
     }
 }

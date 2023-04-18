@@ -1,16 +1,13 @@
 import java.util.ArrayList;
 
+@SuppressWarnings("ALL")
 public class SSTF extends Algorithm {
     @Override
-    @SuppressWarnings("ConstantConditions")
     public void startSimulation(ArrayList<Request> requests) {
         copyQueue(requests);
 
         while (finishedRequests < Main.simulationSize) {
-            if (!simulationQueue.isEmpty() && activeQueue.isEmpty()) {
-                currentTime = Math.max(simulationQueue.peek().getArrivalTime(), currentTime);
-                addToActiveQueue();
-            }
+            addToActiveQueue();
 
             Request compareRequest = new Request(0, headPosition);
             Request floorRequest = activeQueue.floor(compareRequest);
@@ -26,18 +23,9 @@ public class SSTF extends Algorithm {
                 activeRequest = ceilRequest;
             }
 
-            int headMovement = Math.abs((headPosition - activeRequest.getPosition()));
-            headPosition = activeRequest.getPosition();
-            totalHeadMovement += headMovement;
-            currentTime += headMovement;
-
-            activeRequest.setWaitingTime(currentTime - activeRequest.getArrivalTime() + headMovement);
-            activeQueue.remove(activeRequest);
-            finishedRequests++;
+            calculateRequestInfo();
         }
 
-        System.out.println("SSTF");
         printResults();
-        System.out.println("----------");
     }
 }

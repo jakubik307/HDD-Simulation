@@ -8,10 +8,7 @@ public class SCAN extends Algorithm {
         copyQueue(requests);
 
         while (finishedRequests < Main.simulationSize) {
-            if (!simulationQueue.isEmpty() && activeQueue.isEmpty()) {
-                currentTime = Math.max(simulationQueue.peek().getArrivalTime(), currentTime);
-                addToActiveQueue();
-            }
+            addToActiveQueue();
 
             Request compareRequest = new Request(0, headPosition);
             if (isMovingForward) activeRequest = activeQueue.ceiling(compareRequest);
@@ -30,20 +27,10 @@ public class SCAN extends Algorithm {
                 currentTime += headMovement;
                 isMovingForward = !isMovingForward;
             } else {
-                int headMovement = Math.abs((headPosition - activeRequest.getPosition()));
-                headPosition = activeRequest.getPosition();
-                totalHeadMovement += headMovement;
-                currentTime += headMovement;
-
-                activeRequest.setWaitingTime(currentTime - activeRequest.getArrivalTime() + headMovement);
-                activeQueue.remove(activeRequest);
-                finishedRequests++;
+                calculateRequestInfo();
             }
         }
 
-
-        System.out.println("SCAN");
         printResults();
-        System.out.println("----------");
     }
 }
