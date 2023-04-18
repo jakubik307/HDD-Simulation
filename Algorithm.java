@@ -21,26 +21,26 @@ public abstract class Algorithm {
 
     protected void copyQueue(ArrayList<Request> originalRequests) {
         for (Request request : originalRequests) {
-            simulationQueue.add(new Request(request.getArrivalTime(), request.getPosition(), request.getId()));
+            simulationQueue.add(new Request(request.arrivalTime(), request.position(), request.id()));
         }
     }
 
     protected void addToActiveQueue() {
         if (!simulationQueue.isEmpty()) {
-            currentTime = Math.max(simulationQueue.peek().getArrivalTime(), currentTime);
-            while (simulationQueue.peek() != null && simulationQueue.peek().getArrivalTime() <= currentTime) {
+            currentTime = Math.max(simulationQueue.peek().arrivalTime(), currentTime);
+            while (simulationQueue.peek() != null && simulationQueue.peek().arrivalTime() <= currentTime) {
                 activeQueue.add(simulationQueue.remove());
             }
         }
     }
 
     protected void calculateRequestInfo() {
-        int headMovement = Math.abs((headPosition - activeRequest.getPosition()));
-        headPosition = activeRequest.getPosition();
+        int headMovement = Math.abs((headPosition - activeRequest.position()));
+        headPosition = activeRequest.position();
         totalHeadMovement += headMovement;
         currentTime += headMovement;
 
-        long waitingTime = currentTime - activeRequest.getArrivalTime() + headMovement;
+        long waitingTime = currentTime - activeRequest.arrivalTime() + headMovement;
         totalWaitingTime += waitingTime;
         if (waitingTime > maxWaitingTime) maxWaitingTime = waitingTime;
         if (waitingTime > Main.starvationTime) starvedRequests++;

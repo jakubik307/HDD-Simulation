@@ -8,7 +8,7 @@ public class FCFS extends Algorithm {
 
         for (Request request : simulationQueue) {
             activeRequest = request;
-            currentTime = Math.max(activeRequest.getArrivalTime(), currentTime);
+            currentTime = Math.max(activeRequest.arrivalTime(), currentTime);
 
             calculateRequestInfo();
         }

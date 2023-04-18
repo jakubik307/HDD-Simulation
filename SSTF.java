@@ -18,7 +18,7 @@ public class SSTF extends Algorithm {
                 activeRequest = ceilRequest;
             } else if (ceilRequest == null) {
                 activeRequest = floorRequest;
-            } else if (Math.abs(floorRequest.getPosition() - headPosition) < Math.abs(ceilRequest.getPosition() - headPosition)) {
+            } else if (Math.abs(floorRequest.position() - headPosition) < Math.abs(ceilRequest.position() - headPosition)) {
                 activeRequest = floorRequest;
             } else {
                 activeRequest = ceilRequest;
