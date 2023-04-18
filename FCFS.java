@@ -16,7 +16,6 @@ public class FCFS extends Algorithm {
             request.setWaitingTime(currentTime - request.getArrivalTime() + headMovement);
         }
 
-
         System.out.println("FCFS");
         printResults();
         System.out.println("----------");

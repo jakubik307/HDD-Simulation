@@ -36,7 +36,6 @@ public class SSTF extends Algorithm {
             finishedRequests++;
         }
 
-
         System.out.println("SSTF");
         printResults();
         System.out.println("----------");

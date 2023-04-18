@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Main {
     public final static int simulationSize = 8;
-    public final static int driveSize = 10000;
+    public final static int driveSize = 200;
     public final static int avgTimePerRequest = 30;
     public final static int startingPosition = 53;
 
@@ -22,11 +22,11 @@ public class Main {
         test.add(new Request(0, 65));
         test.add(new Request(0, 67));
 
-        SSTF sstf = new SSTF();
-        sstf.startSimulation(test);
+        Algorithm algorithm = new CSCAN();
+        algorithm.startSimulation(test);
 
-        System.out.println(sstf.totalHeadMovement);
-        System.out.println(sstf.currentTime);
+        System.out.println(algorithm.totalHeadMovement);
+        System.out.println(algorithm.currentTime);
     }
 
     private static void generateRequestQueue() {
