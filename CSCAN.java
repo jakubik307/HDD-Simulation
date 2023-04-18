@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
-@SuppressWarnings("ALL")
 public class CSCAN extends Algorithm {
     int headJumps;
 
     @Override
     public void startSimulation(ArrayList<Request> requests) {
+        initialState();
         copyQueue(requests);
 
         while (finishedRequests < Main.simulationSize) {
             addToActiveQueue();
 
-            Request compareRequest = new Request(0, headPosition);
+            Request compareRequest = new Request(0, headPosition, 0);
             activeRequest = activeQueue.ceiling(compareRequest);
 
             if (activeRequest == null) {

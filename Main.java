@@ -3,25 +3,26 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
-    public final static int simulationSize = 8;
-    public final static int driveSize = 200;
+    public final static int simulationSize = 10000;
+    public final static int driveSize = 10000;
     public final static int avgTimePerRequest = 30;
     public final static int startingPosition = 53;
+    public final static int starvationTime = 3 * driveSize;
 
     private final static ArrayList<Request> originalRequests = new ArrayList<>();
 
     public static void main(String[] args) {
-        test();
+        simulation(originalRequests);
     }
 
     private static void generateRequestQueue() {
         for (int i = 0; i < simulationSize; i++) {
-            originalRequests.add(generateRequest());
+            originalRequests.add(generateRequest(i));
         }
-        originalRequests.sort(Comparator.comparing(Request::getArrivalTime).reversed());
+        originalRequests.sort(Comparator.comparing(Request::getArrivalTime));
     }
 
-    private static Request generateRequest() {
+    private static Request generateRequest(int id) {
         int position;
         int arrivalTime;
         Random random = new Random();
@@ -44,32 +45,38 @@ public class Main {
         //Generating arrivalTime
         arrivalTime = random.nextInt(1, simulationSize * avgTimePerRequest);
 
-        return new Request(arrivalTime, position);
+        return new Request(arrivalTime, position, id);
+    }
+
+    public static void simulation(ArrayList<Request> list) {
+        Algorithm algorithm;
+        generateRequestQueue();
+
+        algorithm = new FCFS();
+        algorithm.startSimulation(list);
+
+        algorithm = new SSTF();
+        algorithm.startSimulation(list);
+
+        algorithm = new SCAN();
+        algorithm.startSimulation(list);
+
+        algorithm = new CSCAN();
+        algorithm.startSimulation(list);
     }
 
     public static void test() {
-        Algorithm algorithm;
-        ArrayList<Request> test = new ArrayList<>();
+        ArrayList<Request> list = new ArrayList<>();
 
-        test.add(new Request(0, 98));
-        test.add(new Request(0, 183));
-        test.add(new Request(0, 37));
-        test.add(new Request(0, 122));
-        test.add(new Request(0, 14));
-        test.add(new Request(0, 124));
-        test.add(new Request(0, 65));
-        test.add(new Request(0, 67));
+        list.add(new Request(0, 98, 0));
+        list.add(new Request(0, 183, 1));
+        list.add(new Request(0, 37, 2));
+        list.add(new Request(0, 122, 3));
+        list.add(new Request(0, 14, 4));
+        list.add(new Request(0, 124, 5));
+        list.add(new Request(0, 67, 6));
+        list.add(new Request(0, 67, 7));
 
-        algorithm = new FCFS();
-        algorithm.startSimulation(test);
-
-        algorithm = new SSTF();
-        algorithm.startSimulation(test);
-
-        algorithm = new SCAN();
-        algorithm.startSimulation(test);
-
-        algorithm = new CSCAN();
-        algorithm.startSimulation(test);
+        simulation(list);
     }
 }

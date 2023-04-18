@@ -1,15 +1,16 @@
 import java.util.ArrayList;
 
-@SuppressWarnings("ALL")
 public class SSTF extends Algorithm {
     @Override
     public void startSimulation(ArrayList<Request> requests) {
+        initialState();
         copyQueue(requests);
 
         while (finishedRequests < Main.simulationSize) {
             addToActiveQueue();
 
-            Request compareRequest = new Request(0, headPosition);
+
+            Request compareRequest = new Request(0, headPosition, 0);
             Request floorRequest = activeQueue.floor(compareRequest);
             Request ceilRequest = activeQueue.ceiling(compareRequest);
 
