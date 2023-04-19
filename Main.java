@@ -21,7 +21,7 @@ public class Main {
         for (int i = 0; i < simulationSize; i++) {
             originalRequests.add(generateRequest(i));
         }
-        originalRequests.sort(Comparator.comparing(Request::arrivalTime));
+        originalRequests.sort(Comparator.comparing(Request::getArrivalTime));
     }
 
     private static Request generateRequest(int id) {
