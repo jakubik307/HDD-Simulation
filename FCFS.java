@@ -14,5 +14,6 @@ public class FCFS extends Algorithm {
         }
 
         printResults();
+        System.out.println();
     }
 }

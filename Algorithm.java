@@ -1,7 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.TreeSet;
+import java.util.*;
 
 public abstract class Algorithm {
     protected TreeSet<Request> activeQueue;
@@ -27,8 +24,8 @@ public abstract class Algorithm {
 
     protected void addToActiveQueue() {
         if (!simulationQueue.isEmpty()) {
-            currentTime = Math.max(simulationQueue.peek().arrivalTime(), currentTime);
-            while (simulationQueue.peek() != null && simulationQueue.peek().arrivalTime() <= currentTime) {
+            if (activeQueue.isEmpty()) currentTime = Math.max(simulationQueue.peek().arrivalTime(), currentTime);
+            while (!simulationQueue.isEmpty() && simulationQueue.peek().arrivalTime() <= currentTime) {
                 activeQueue.add(simulationQueue.remove());
             }
         }
@@ -40,7 +37,7 @@ public abstract class Algorithm {
         totalHeadMovement += headMovement;
         currentTime += headMovement;
 
-        long waitingTime = currentTime - activeRequest.arrivalTime() + headMovement;
+        long waitingTime = currentTime - activeRequest.arrivalTime();
         totalWaitingTime += waitingTime;
         if (waitingTime > maxWaitingTime) maxWaitingTime = waitingTime;
         if (waitingTime > Main.starvationTime) starvedRequests++;
@@ -57,8 +54,6 @@ public abstract class Algorithm {
         System.out.println("Average waiting time: " + totalWaitingTime / Main.simulationSize);
         System.out.println("Max waiting time: " + maxWaitingTime);
         System.out.println("Starved requests: " + starvedRequests);
-
-        System.out.println();
     }
 
     protected void initialState() {

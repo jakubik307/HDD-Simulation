@@ -28,5 +28,6 @@ public class SSTF extends Algorithm {
         }
 
         printResults();
+        System.out.println();
     }
 }

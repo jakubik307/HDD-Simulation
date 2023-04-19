@@ -3,15 +3,17 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
-    public final static int simulationSize = 10000;
-    public final static int driveSize = 10000;
-    public final static int avgTimePerRequest = 30;
+    public final static int simulationSize = 2000000;
+    public final static int driveSize = 20000;
+    public final static int avgTimePerRequest = 300;
     public final static int startingPosition = 53;
-    public final static int starvationTime = 3 * driveSize;
+    public final static int starvationTime = 2 * driveSize;
 
     private final static ArrayList<Request> originalRequests = new ArrayList<>();
 
     public static void main(String[] args) {
+//        test();
+
         simulation(originalRequests);
     }
 
@@ -65,6 +67,7 @@ public class Main {
         algorithm.startSimulation(list);
     }
 
+    @Deprecated
     public static void test() {
         ArrayList<Request> list = new ArrayList<>();
 
@@ -74,9 +77,20 @@ public class Main {
         list.add(new Request(0, 122, 3));
         list.add(new Request(0, 14, 4));
         list.add(new Request(0, 124, 5));
-        list.add(new Request(0, 67, 6));
+        list.add(new Request(0, 65, 6));
         list.add(new Request(0, 67, 7));
 
         simulation(list);
     }
 }
+
+/*
+  Notes:
+  FCFC performs incredibly poorly
+
+  The rest performs quite similarly
+  SSTF -> SCAN -> C-SCAN
+
+  Total head movement ~= simulationSize * avgTimePerRequest
+  Head jumps = simulationSize * avgTimePerRequest / driveSize
+ */

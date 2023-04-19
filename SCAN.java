@@ -33,5 +33,6 @@ public class SCAN extends Algorithm {
         }
 
         printResults();
+        System.out.println();
     }
 }

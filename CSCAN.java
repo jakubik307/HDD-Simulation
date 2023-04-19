@@ -27,5 +27,12 @@ public class CSCAN extends Algorithm {
         }
 
         printResults();
+        System.out.println();
+    }
+
+    @Override
+    protected void printResults() {
+        super.printResults();
+        System.out.println("Head jumps: " + headJumps);
     }
 }
