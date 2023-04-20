@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.TreeSet;
 
 public abstract class Algorithm {
     protected TreeSet<Request> activeQueue;
@@ -30,7 +33,7 @@ public abstract class Algorithm {
             }
         }
     }
-
+    
     protected void calculateRequestInfo() {
         int headMovement = Math.abs((headPosition - activeRequest.getPosition()));
         headPosition = activeRequest.getPosition();

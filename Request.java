@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class Request implements Comparable<Request> {
     private final int arrivalTime;
     private final int position;
@@ -38,15 +36,4 @@ public class Request implements Comparable<Request> {
         var that = (Request) obj;
         return this.arrivalTime == that.arrivalTime && this.position == that.position && this.id == that.id;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(arrivalTime, position, id);
-    }
-
-    @Override
-    public String toString() {
-        return "Request[" + "arrivalTime=" + arrivalTime + ", " + "position=" + position + ", " + "id=" + id + ']';
-    }
-
 }

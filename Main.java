@@ -3,18 +3,23 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
-    public final static int simulationSize = 2000000;
-    public final static int driveSize = 20000;
-    public final static int avgTimePerRequest = 300;
+    public final static int simulationSize = 10000;
+    public final static int driveSize = 1000;
+    public final static int avgTimePerRequest = 100;
     public final static int startingPosition = 53;
     public final static int starvationTime = 2 * driveSize;
 
+    public final static int RTSize = (int) (0.3 * simulationSize);
+    public final static int minDeadline = 1000;
+    public final static int maxDeadline = 2000;
+
     private final static ArrayList<Request> originalRequests = new ArrayList<>();
+    private final static ArrayList<RealTimeRequest> originalRTRequests = new ArrayList<>();
 
     public static void main(String[] args) {
 //        test();
 
-        simulation(originalRequests);
+        simulation(originalRequests, originalRTRequests);
     }
 
     private static void generateRequestQueue() {
@@ -22,6 +27,13 @@ public class Main {
             originalRequests.add(generateRequest(i));
         }
         originalRequests.sort(Comparator.comparing(Request::getArrivalTime));
+
+        for (int i = simulationSize; i < simulationSize + RTSize; i++) {
+            Request request = generateRequest(i);
+            Random random = new Random();
+            originalRTRequests.add(new RealTimeRequest(request.getArrivalTime(), request.getPosition(), request.getId(), request.getArrivalTime() + random.nextInt(minDeadline, maxDeadline)));
+        }
+        originalRTRequests.sort(Comparator.comparing(RealTimeRequest::getArrivalTime));
     }
 
     private static Request generateRequest(int id) {
@@ -50,21 +62,25 @@ public class Main {
         return new Request(arrivalTime, position, id);
     }
 
-    public static void simulation(ArrayList<Request> list) {
+    public static void simulation(ArrayList<Request> requests, ArrayList<RealTimeRequest> realTimeRequests) {
         Algorithm algorithm;
+        RealTimeAlgorithm realTimeAlgorithm;
         generateRequestQueue();
 
         algorithm = new FCFS();
-        algorithm.startSimulation(list);
+        algorithm.startSimulation(requests);
 
         algorithm = new SSTF();
-        algorithm.startSimulation(list);
+        algorithm.startSimulation(requests);
 
         algorithm = new SCAN();
-        algorithm.startSimulation(list);
+        algorithm.startSimulation(requests);
 
         algorithm = new CSCAN();
-        algorithm.startSimulation(list);
+        algorithm.startSimulation(requests);
+
+        realTimeAlgorithm = new EDF();
+        realTimeAlgorithm.startSimulation(requests, realTimeRequests);
     }
 
     @Deprecated
@@ -80,7 +96,7 @@ public class Main {
         list.add(new Request(0, 65, 6));
         list.add(new Request(0, 67, 7));
 
-        simulation(list);
+        simulation(list, originalRTRequests);
     }
 }
 
