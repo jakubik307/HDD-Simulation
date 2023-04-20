@@ -21,7 +21,6 @@ public class EDF extends RealTimeAlgorithm {
                 if (activeRequest == null) {
                     int headMovement;
                     headMovement = Main.driveSize - headPosition;
-                    // TODO: 20/04/2023 BUUUUUG
                     headPosition = 0;
                     totalHeadMovement += headMovement;
                     currentTime += headMovement;

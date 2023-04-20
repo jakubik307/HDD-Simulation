@@ -3,15 +3,15 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
-    public final static int simulationSize = 10000;
-    public final static int driveSize = 1000;
+    public final static int simulationSize = 1000000;
+    public final static int driveSize = 10000;
     public final static int avgTimePerRequest = 100;
     public final static int startingPosition = 53;
     public final static int starvationTime = 2 * driveSize;
 
     public final static int RTSize = (int) (0.3 * simulationSize);
-    public final static int minDeadline = 1000;
-    public final static int maxDeadline = 2000;
+    public final static int minDeadline = 3000;
+    public final static int maxDeadline = 10000;
 
     private final static ArrayList<Request> originalRequests = new ArrayList<>();
     private final static ArrayList<RealTimeRequest> originalRTRequests = new ArrayList<>();
@@ -80,6 +80,9 @@ public class Main {
         algorithm.startSimulation(requests);
 
         realTimeAlgorithm = new EDF();
+        realTimeAlgorithm.startSimulation(requests, realTimeRequests);
+
+        realTimeAlgorithm = new FDSCAN();
         realTimeAlgorithm.startSimulation(requests, realTimeRequests);
     }
 
